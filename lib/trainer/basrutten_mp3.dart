@@ -1,4 +1,5 @@
 class BasRuttenMp3 {
+
   List<String> _mp3 = [
     'mp3/basrutten/getreadyin5.mp3',
     'mp3/basrutten/round1.mp3',
@@ -19,23 +20,10 @@ class BasRuttenMp3 {
   get mp3 => _mp3;
 
   List<int> _mp3duration = [
-  7,
-  2,
-  1,
-  1,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  2,
-  1,
-  2,
-  1,
+  7, 2, 1, 1, 2,
+  2, 2, 2, 2, 2,
+  2, 2, 1, 2, 1,
   ];
-
   get mp3duration => _mp3duration;
 
 }
