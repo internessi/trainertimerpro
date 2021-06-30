@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'basrutten_mp3.dart';
+import '../later/trainer_db.dart';
+import 'training_process.dart';
 
 class TrainerPage extends StatelessWidget {
   const TrainerPage({Key? key}) : super(key: key);
@@ -46,6 +48,7 @@ class __CountdownsState extends State<_Countdowns> {
 
   final List<String> _mp3 = BasRuttenMp3().mp3;
   final List<int> _mp3duration = BasRuttenMp3().mp3duration;
+  final List<int> _process120 = TrainingProcess().process120;
 
   AudioCache audioCache= AudioCache();
   AudioPlayer audioPlayer = AudioPlayer();
@@ -57,7 +60,7 @@ class __CountdownsState extends State<_Countdowns> {
   @override
   void initState() {
     super.initState();
-    timeStart = 180;
+    timeStart = 120;
     _controller = TimerController.seconds(timeStart);
 
 
@@ -78,22 +81,11 @@ class __CountdownsState extends State<_Countdowns> {
       listener: (context, timerValue) {
         timeSoFar = timeStart - timerValue.remaining;
         // print(timeSoFar);
-        if (timeSoFar == 3) {
-          print(_mp3duration[1]);
-          playSound(_mp3[1]);
+        if (_process120[timeSoFar] > 0) {
+          print(_mp3[_process120[timeSoFar]]);
+          playSound(_mp3[_process120[timeSoFar]]);
         }
-        if (timeSoFar == 6) {
-          print(_mp3duration[2]);
-          playSound(_mp3[2]);
-        }
-        if (timeSoFar == 9) {
-          print(_mp3duration[3]);
-          playSound(_mp3[3]);
-        }
-        if (timeSoFar == 12) {
-          print(_mp3duration[4]);
-          playSound(_mp3[4]);
-        }
+
 
       },
       child: Center(
