@@ -1,4 +1,5 @@
 import 'package:circular_countdown/circular_countdown.dart';
+import 'package:flutter/services.dart';
 import 'package:timer_controller/timer_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
@@ -46,8 +47,6 @@ class _Countdowns extends StatefulWidget {
 
 class __CountdownsState extends State<_Countdowns> {
 
-  final List<String> _mp3 = BasRuttenMp3().mp3;
-  final List<int> _mp3duration = BasRuttenMp3().mp3duration;
   final List<int> _process120 = TrainingProcess().process120;
 
   AudioCache audioCache= AudioCache();
@@ -57,7 +56,9 @@ class __CountdownsState extends State<_Countdowns> {
   int timeStart = 0;
   int timeSoFar = 0;
   late final TimerController _controller;
+
   @override
+
   void initState() {
     super.initState();
     timeStart = 120;
@@ -74,6 +75,10 @@ class __CountdownsState extends State<_Countdowns> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return TimerControllerListener(
       controller: _controller,
       listenWhen: (previousValue, currentValue) =>
@@ -82,8 +87,8 @@ class __CountdownsState extends State<_Countdowns> {
         timeSoFar = timeStart - timerValue.remaining;
         // print(timeSoFar);
         if (_process120[timeSoFar] > 0) {
-          print(_mp3[_process120[timeSoFar]]);
-          playSound(_mp3[_process120[timeSoFar]]);
+          print(mp3BasRutten[_process120[timeSoFar]]['mp3Link']);
+          ///playSound(_mp3[_process120[timeSoFar]]);
         }
 
 
@@ -161,7 +166,7 @@ class __CountdownsState extends State<_Countdowns> {
   void initSounds() async {
     audioPlayer = AudioPlayer();
     audioCache = AudioCache(fixedPlayer: audioPlayer);
-    audioCache.loadAll(_mp3);
+    // audioCache.loadAll(mp3);
   }
 
   void playSound(_mp3) async {
